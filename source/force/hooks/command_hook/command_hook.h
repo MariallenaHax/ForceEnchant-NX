@@ -8,11 +8,16 @@ HOOK_DEFINE_REPLACE(Command) {
     }
 };
 
+//見つけ方
+//commands.generic.num.tooSmallでsearchする。
+//参照元へ飛ぶ。
+//その関数がCommand::ValidRange
+
 namespace CommandHook {
 	class ValidRange : public Hook {
 	public:
 		bool Initialize() override {
-			uintptr_t address = SigScan("ff 43 03 d1 fd 7b 07 a9 fb 43 00 f9 fa 67 09 a9 f8 5f 0a a9 f6 57 0b a9 f4 4f 0c a9 fd c3 01 91 68 e1");
+			uintptr_t address = SigScan("FF 83 01 D1 FD 7B ? A9 ? ? ? A9 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? C3 ? ? ? ? ? ? ? ? ? ? ? ? 00 ? ? ? 00"); //26.51
 			if(address)
 			{
 				Command::InstallAtPtr(address);

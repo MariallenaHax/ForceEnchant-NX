@@ -2,22 +2,9 @@
 #include "lib.hpp"
 #include "../hooks.h"
 
-class EnchantMentInstance {
-public:
-	int enchantType;
-	int level;
-};
-
-class EnchantResult {
-public:
-	int enchantResultType;
-	int enchantId;
-	int level;
-};
-
-HOOK_DEFINE_TRAMPOLINE(ItemEnch) {
-    static void Callback(int64_t _this, EnchantResult* result, EnchantMentInstance* en, bool allowNonVanilla) {
-        Orig(_this, result, en,true);
+HOOK_DEFINE_INLINE(ItemEnch) {
+	static void Callback(exl::hook::InlineCtx* ctx) {
+		ctx->W[2] = 1;
     }
 };
 
